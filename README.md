@@ -1,2 +1,91 @@
-# fchan
-A clojure lib for 4Chan's read-only api (https://github.com/4chan/4chan-API)
+# Fchan
+
+[![Clojars Project](https://img.shields.io/clojars/v/fchan.svg)](https://clojars.org/fchan)
+
+A simple [4Chan API](https://github.com/4chan/4chan-API) wrapper
+
+Ps.: this repo is on early stage of development and it is still not ready for use yet.
+
+
+## Usage
+
+`fchan` is available as a Maven artifact from [Clojars](https://clojars.org/fchan).
+
+On your Leiningen project file add `[fchan "0.1.0-SNAPSHOT"]`
+
+To get all ids of a board per page:
+
+```Clojure
+(get-thread-ids "a")
+```
+It will return
+```Clojure
+ [{:page 1,
+   :threads [{:no 159627682, :last_modified 1499741301}
+             {:no 159515948, :last_modified 1499741300}
+             ...]}]
+```
+To get list of all available boards
+```clojure
+(get-boards)
+```
+It will return something like
+```Clojure
+{:boards [{:cooldowns {:threads 600, :replies 60, :images 60},
+           :bump_limit 310,
+           :ws_board 1,
+           :is_archived 1,
+           :max_webm_duration 120,
+           :max_comment_chars 2000,
+           :title "3DCG",
+           :pages 10,
+           :meta_description "&quot;/3/ - 3DCG&quot; is 4chan's board for 3D modeling and imagery.",
+           :image_limit 150,
+           :per_page 15,
+           :max_webm_filesize 3145728,
+           :max_filesize 4194304,
+           :board "3"}
+           ...]
+:troll_flags {:EU "European", ...}
+```
+To get page of a board
+```Clojure
+(get-board-page "a" 1)
+```
+And it will return 
+```Clojure
+{:threads [{:posts [{:tn_h 140,
+                     :bumplimit 0,
+                     :com "Your move, /a/.",
+                     :ext ".jpg",
+                     :md5 "gy6lPLP+GorNTpYaBJ9oRA==",
+                     :tim 1499732135330,
+                     :now "07/10/17(Mon)20:15:35",
+                     :tn_w 250,
+                     :sub "Tenshi no 3P!",
+                     :images 32,
+                     :semantic_url "tenshi-no-3p",
+                     :name "Anonymous",
+                     :w 1280,
+                     :resto 0,
+                     :time 1499732135,
+                     :omitted_posts 115,
+                     :custom_spoiler 1,
+                     :filename "[HorribleSubs] Tenshi no 3P! - 01 [720p].mkv_snapshot_11.06_[2017.07.10_20.43.22]",
+                     :fsize 204842,
+                     :replies 120,
+                     :tail_size 50,
+                     :h 720,
+                     :no 159641239,
+                     :imagelimit 0,
+                     :omitted_images 30}
+                     ...]}]}
+```
+
+To be continued (it will add more documentation as soon I get some spare time)
+
+## License
+
+Copyright (c) 2017 Gabriel Giovanini
+
+Distributed under the MIT License.
