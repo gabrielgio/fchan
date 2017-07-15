@@ -5,7 +5,7 @@
 
 (def ^String fchan-url "https://a.4cdn.org")
 
-(defn get-thread-ids
+(defn get-threadids
   "Get a list of ids of a board"
   [^String board]
   (json/read-str (:body (client/get (str fchan-url "/" board "/threads.json")))
@@ -24,20 +24,30 @@
   otherwise will return the current"
   [t-ids page thread-nth]
   (if (>= thread-nth (count (:threads page)))
-    (first (filter (fn [x] (= (:page x) (inc (:page page)))) (get-thread-ids "a")))
+    (first (filter (fn [x] (= (:page x) (inc (:page page)))) (get-threadids "a")))
     page))
 
 (defn get-boards
-  "Get boads' information"
+  "Get boads' information."
   []
   (json/read-str (:body (client/get (str fchan-url "/boards.json")))
                  :key-fn keyword))
+
+(defn get-board-catalog
+  "Get catalog of a thread."
+  [^String board]
+  (json/read-str (:body (client/get (str fchan-url "/" board "/catalog.json"))) :key-fn keyword))
 
 (defn get-board-page
   "Get information of given page of given boad"
   [^String board ^Integer page]
   (json/read-str (:body (client/get (str fchan-url "/" board "/" page ".json")))
                  :key-fn keyword))
+
+(defn get-archive-threads
+  "Get list of all archived thread ids"
+  [^String board]
+  (json/read-str (:body (client/get (str fchan-url "/" board "/archive.json"))) :key-fn keyword))
 
 (defn get-thread
   "Get thread's posts"
@@ -49,7 +59,7 @@
   "Get all threads of a board.
   This is a higher level of get-thread and
   it will return a laze-seq of all threads of a board."
-  ([^String board] (get-threads board (get-thread-ids board)))
+  ([^String board] (get-threads board (get-threadids board)))
   ([^String board t-ids] (get-threads board t-ids (first t-ids) 0))
   ([^String board t-ids page ^Integer thread-nth]
    (if (not= page nil)

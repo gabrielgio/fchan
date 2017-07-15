@@ -3,5 +3,5 @@
             [fchan.core :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
+  (testing "Get thread ids"
     (is (get 0 1))))
