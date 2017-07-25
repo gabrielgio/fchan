@@ -103,4 +103,4 @@ To be continued (it will add more documentation as soon I get some spare time)
 
 Copyright (c) 2017 Gabriel Giovanini
 
-Distributed under the MIT License.
+Distributed under the Eclipse Public License 1.0.
