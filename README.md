@@ -82,6 +82,21 @@ And it will return
                      ...]}]}
 ```
 
+To get list of id of all archived thread of a board
+
+```Clojure
+(get-archive-threads "a")
+```
+
+And it will return an array of thread ids (`:no`)
+```Clojure
+ [160251728
+ 160251770
+ 160251879
+ 160252141
+ ...]
+```
+
 To be continued (it will add more documentation as soon I get some spare time)
 
 ## License
