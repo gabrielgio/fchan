@@ -19,3 +19,36 @@
   (testing "Simple get boards test"
     (is (not-nil? (:boards (get-boards))))
     (is (not-nil? (:troll_flags (get-boards))))))
+
+(deftest content-get-boards-test
+  (testing "Content validation for get-boards"
+    (is (not-nil? (:boards (get-boards))))
+    (is (not-nil? (:troll_flags (get-boards))))
+    (is (every? (fn [x] (and (not-nil? (:cooldowns x))
+                             (not-nil? (:ws_board x))
+                             (not-nil? (:max_webm_duration x))
+                             (not-nil? (:max_comment_chars x))
+                             (not-nil? (:title x))
+                             (not-nil? (:pages x))
+                             (not-nil? (:meta_description x))
+                             (not-nil? (:image_limit x))
+                             (not-nil? (:per_page x))
+                             (not-nil? (:max_webm_filesize x))
+                             (not-nil? (:max_filesize x))
+                             (not-nil? (:board x)))) (:boards (get-boards))))
+    (is (let [t (:troll_flags (get-boards))]
+          (and (not-nil? (:EU t)) (not-nil? (:CM t))
+               (not-nil? (:PR t)) (not-nil? (:UN t))
+               (not-nil? (:PC t)) (not-nil? (:MF t))
+               (not-nil? (:BL t)) (not-nil? (:KN t))
+               (not-nil? (:CF t)) (not-nil? (:AN t))
+               (not-nil? (:AC t)) (not-nil? (:WP t))
+               (not-nil? (:RE t)) (not-nil? (:TR t))
+               (not-nil? (:TM t)) (not-nil? (:NB t))
+               (not-nil? (:JH t)) (not-nil? (:GY t))
+               (not-nil? (:FC t)) (not-nil? (:DM t))
+               (not-nil? (:GN t)) (not-nil? (:NZ t)))))))
+
+(deftest get-archive-threads-test
+  (testing "Test get archived thread ids"
+    (is (let [ids (get-archive-threads "a")] (every? integer? ids)))))

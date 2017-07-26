@@ -5,6 +5,26 @@
 
 (def ^String fchan-url "https://a.4cdn.org")
 
+(def spoiler-url "https://s.4cdn.org/image/spoiler.png")
+
+(def sticky-url "https://s.4cdn.org/image/sticky.gif")
+
+(def admin-url "https://s.4cdn.org/image/adminicon.gif")
+
+(def mod-url "https://s.4cdn.org/image/modicon.gif")
+
+(def manager-url "https://s.4cdn.org/image/managericon.gif")
+
+(def developer-url "https://s.4cdn.org/image/developericon.gif")
+
+(def founder-url "https://s.4cdn.org/image/foundericon.gif")
+
+(def spoiler-url "https://s.4cdn.org/image/spoiler.png")
+
+(def op-deleted-url "https://s.4cdn.org/image/filedeleted.gif")
+
+(def delete-url "https://s.4cdn.org/image/filedeleted-res.gif")
+
 (defn get-thread-ids
   "Get a list of ids of a board"
   [^String board]
@@ -67,3 +87,18 @@
                      (get-threads board t-ids
                                   (normilize-page t-ids page (inc thread-nth))
                                   (normilize-thread page (inc thread-nth))))))))
+
+(get-image-url
+  "Return a image url string"
+  [^String board ^Integer tim ^String ext]
+  (str "https://i.4cdn.org/" board "/" tim ext))
+
+(get-thumbnail-url
+  "Return a thumbnail image url string"
+  [^String board ^Integer tim ^String ext]
+  (str "https://i.4cdn.org/" board "/" tim "s.jpg"))
+
+(get-custom-spoiler-url
+  "Return a per board custom spoiler image url string"
+  [^String board]
+  (str "http(s)://s.4cdn.org/image/spoiler-" board ".png"))
