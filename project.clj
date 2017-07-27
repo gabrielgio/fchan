@@ -1,4 +1,4 @@
-(defproject fchan "0.1.2"
+(defproject fchan "0.1.3"
   :description "Very simple 4Chan Api wrapper"
   :url "https://github.com/gabrielgio/fchan"
   :license {:name "MIT License"

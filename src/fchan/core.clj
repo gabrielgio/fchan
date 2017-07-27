@@ -88,17 +88,17 @@
                                   (normilize-page t-ids page (inc thread-nth))
                                   (normilize-thread page (inc thread-nth))))))))
 
-(get-image-url
+(defn get-image-url
   "Return a image url string"
   [^String board ^Integer tim ^String ext]
   (str "https://i.4cdn.org/" board "/" tim ext))
 
-(get-thumbnail-url
+(defn get-thumbnail-url
   "Return a thumbnail image url string"
   [^String board ^Integer tim ^String ext]
   (str "https://i.4cdn.org/" board "/" tim "s.jpg"))
 
-(get-custom-spoiler-url
+(defn get-custom-spoiler-url
   "Return a per board custom spoiler image url string"
   [^String board]
   (str "http(s)://s.4cdn.org/image/spoiler-" board ".png"))
