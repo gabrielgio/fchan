@@ -52,3 +52,23 @@
 (deftest get-archive-threads-test
   (testing "Test get archived thread ids"
     (is (let [ids (get-archive-threads "a")] (every? integer? ids)))))
+
+(deftest get-board-catalog-test
+  (testing "Test for 404"
+    (is (count (get-board-catalog "gif")))))
+
+(deftest get-board-page-test
+  (testing "Test for 404"
+    (is (not-nil? (:threads (get-board-page "a" 1))))))
+
+(deftest get-thread-test
+  (testing "Test for 404"
+    (is (not-nil? (get-thread "co" 98629766)))))
+
+(deftest get-image-url-test
+  (testing "Test for get-image-url"
+    (is (= "https://i.4cdn.org/co/1518482846189.jpg" (get-image-url "co" 1518482846189 ".jpg")))))
+
+(deftest get-thumbnail-url-test
+  (testing "Test for get-thumbnail-url"
+    (is (= "https://i.4cdn.org/co/1518482846189s.jpg" (get-thumbnail-url "co" 1518482846189)))))

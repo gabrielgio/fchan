@@ -31,22 +31,6 @@
   (json/read-str (:body (client/get (str fchan-url "/" board "/threads.json")))
                  :key-fn keyword))
 
-(defn- normilize-thread
-  "I will return 0 in case thread-nth overflow page's number of threads,
-  otherwise will return current thread-nth"
-  [page thread-nth]
-  (if (>= thread-nth (count (:threads page)))
-    0
-    thread-nth))
-
-(defn- normilize-page
-  "It will return next page in case thread-nth overflows page's number of threads
-  otherwise will return the current"
-  [t-ids page thread-nth]
-  (if (>= thread-nth (count (:threads page)))
-    (first (filter (fn [x] (= (:page x) (inc (:page page)))) (get-thread-ids "a")))
-    page))
-
 (defn get-boards
   "Get boads' information."
   []
@@ -59,7 +43,7 @@
   (json/read-str (:body (client/get (str fchan-url "/" board "/catalog.json"))) :key-fn keyword))
 
 (defn get-board-page
-  "Get information of given page of given boad"
+  "Get information of given page of given board"
   [^String board ^Integer page]
   (json/read-str (:body (client/get (str fchan-url "/" board "/" page ".json")))
                  :key-fn keyword))
@@ -75,19 +59,6 @@
   (json/read-str (:body (client/get (str fchan-url "/" board "/thread/" t-number ".json")))
                  :key-fn keyword))
 
-(defn get-threads
-  "Get all threads of a board.
-  This is a higher level of get-thread and
-  it will return a laze-seq of all threads of a board."
-  ([^String board] (get-threads board (get-thread-ids board)))
-  ([^String board t-ids] (get-threads board t-ids (first t-ids) 0))
-  ([^String board t-ids page ^Integer thread-nth]
-   (if (not= page nil)
-     (lazy-seq (cons (get-thread board (:no (nth (:threads page) (normilize-thread page thread-nth))))
-                     (get-threads board t-ids
-                                  (normilize-page t-ids page (inc thread-nth))
-                                  (normilize-thread page (inc thread-nth))))))))
-
 (defn get-image-url
   "Return a image url string"
   [^String board ^Integer tim ^String ext]
@@ -95,10 +66,5 @@
 
 (defn get-thumbnail-url
   "Return a thumbnail image url string"
-  [^String board ^Integer tim ^String ext]
+  [^String board ^Integer tim]
   (str "https://i.4cdn.org/" board "/" tim "s.jpg"))
-
-(defn get-custom-spoiler-url
-  "Return a per board custom spoiler image url string"
-  [^String board]
-  (str "http(s)://s.4cdn.org/image/spoiler-" board ".png"))

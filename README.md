@@ -4,18 +4,14 @@
 
 A simple [4Chan API](https://github.com/4chan/4chan-API) wrapper
 
-This repo is on early stage of development and lacks some features but it is usable.
 
 ## Roadmap
-* Add lazy-seq support for `get-board-page`.
 * Add support for core.async.
-* Add more functions to make easier to manege threads/board/posts data.
-* 100% test coverage.
 ## Usage
 
 `fchan` is available as a Maven artifact from [Clojars](https://clojars.org/fchan).
 
-On your Leiningen project file add `[fchan "0.1.2"]`
+On your Leiningen project file add `[fchan "0.1.4"]`
 
 To get all ids of a board per page:
 
@@ -146,44 +142,7 @@ And it will return a list of posts
           ...]}
 ```
 
-To get a lazy seq a all threads of a post til it reaches end of board
-
-```Clojure
-(get-threads "a")
-
-;; to use try something like this
-(def threads (get-threads "a"))
-(take 1 threads)
-``` 
 And it will return
-
-```Clojure
-({:posts [{:tn_h 250,
-           :unique_ips 55,
-           :bumplimit 0,
-           :com "BD is out. Praise musubi!",
-           :ext ".jpg",
-           :md5 "JFqXGjP24iIY6i71BR7fXQ==",
-           :tim 1501012278567,
-           :now "07/25/17(Tue)15:51:18",
-           :tn_w 200,
-           :sub "Kimi no Na wa. / Your Name.",
-           :images 54,
-           :semantic_url "kimi-no-na-wa-your-name",
-           :name "Anonymous",
-           :w 2113,
-           :resto 0,
-           :time 1501012278,
-           :custom_spoiler 1,
-           :filename "love umbrella",
-           :fsize 321506,
-           :replies 187,
-           :tail_size 50,
-           :h 2638,
-           :no 160282736,
-           :imagelimit 0}
-           ...]})
-```
 
 ## License
 
