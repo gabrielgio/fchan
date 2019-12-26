@@ -63,7 +63,7 @@
 
 (deftest get-thread-test
   (testing "Test for 404"
-    (is (not-nil? (get-thread "co" 98629766)))))
+    (is (not-nil? (get-thread "gif" 6226033)))))
 
 (deftest get-image-url-test
   (testing "Test for get-image-url"
